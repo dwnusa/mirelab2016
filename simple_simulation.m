@@ -93,7 +93,8 @@ figure(2), imagesc(out1);
 set(gca,'YDir','normal');
 figure(3), mesh(xrange, yrange, out1);
 hold on;
-scatter3(x(1,:), x(2,:), y);
+scatter3(x(1,y>0.5), x(2,y>0.5), y(y>0.5),'x');
+scatter3(x(1,y<=0.5), x(2,y<=0.5), y(y<=0.5));
 hold off;
 %% 피팅층 설계 시뮬레이션 - 실험 2
 close all; clear all;
