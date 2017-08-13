@@ -1,2 +1,1 @@
-# DNN_code
-DNN_experiment_code
+# mirelab 인수인계자료
