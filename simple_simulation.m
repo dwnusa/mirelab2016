@@ -7,7 +7,7 @@ c1var   = 1;
 c11 = [c1mean(1)+c1var*randn(c1count,1) c1mean(2)+c1var*randn(c1count,1)];
 c12 = [c1mean(1)+c1var*randn(c1count,1) c1mean(2)+c1var*randn(c1count,1)];
 c1 = [c11; c12];
-figure(1), scatter(c1(:,1), c1(:,2)); hold on;
+% figure(1), scatter(c1(:,1), c1(:,2)); hold on;
 
 c2count = count;
 c2mean  = [10 11];
@@ -15,7 +15,7 @@ c2var   = 1;
 c21 = [c2mean(1)+c2var*randn(c2count,1) c2mean(2)+c2var*randn(c2count,1)];
 c22 = [c2mean(1)+c2var*randn(c2count,1) c2mean(2)+c2var*randn(c2count,1)];
 c2 = [c21; c22];
-figure(1), scatter(c2(:,1), c2(:,2)); hold on;
+% figure(1), scatter(c2(:,1), c2(:,2)); hold on;
 
 c3count = count;
 c3mean = [10 2];
@@ -23,7 +23,7 @@ c3var = 3;
 c31 = [c3mean(1)+c3var*randn(c3count,1) c3mean(2)+c3var*randn(c3count,1)];
 c32 = [c3mean(1)+c3var*randn(c3count,1) c3mean(2)+c3var*randn(c3count,1)];
 c3 = [c31; c32];
-figure(1), scatter(c3(:,1), c3(:,2)); hold on;
+% figure(1), scatter(c3(:,1), c3(:,2)); hold on;
 
 c4count = count;
 c4mean = [17 5];
@@ -31,7 +31,8 @@ c4var = 1;
 c41 = [c4mean(1)+c4var*randn(c4count,1) c4mean(2)+c4var*randn(c4count,1)];
 c42 = [c4mean(1)+c4var*randn(c4count,1) c4mean(2)+c4var*randn(c4count,1)];
 c4 = [c41; c42];
-figure(1), scatter(c4(:,1), c4(:,2)); hold on;
+C = [c1; c2; c3; c4];
+figure(1), scatter(C(:,1), C(:,2)); hold on;
 
 c5count = count;
 c5mean = [12 7];
@@ -81,15 +82,19 @@ y = net(x);
 %view(net)
 %% 학습용 그래프랑 인지공간 출력
 figure(2), plot(t(1:20),'o'), hold on; plot(y(1:20),'x'); hold off;
-[X, Y] = meshgrid(-5:30,-5:20);
+xrange = -5:30;
+yrange = -5:20;
+[X, Y] = meshgrid(xrange,yrange);
 index = [X(:) Y(:)]';
 out = net(index);
-out1 = reshape(out, length(-5:20), length(-5:30));
+out1 = reshape(out, length(yrange), length(xrange));
 % out1 = flipud(out1);
 figure(2), imagesc(out1);
 set(gca,'YDir','normal');
-figure(3), mesh(out1);
-
+figure(3), mesh(xrange, yrange, out1);
+hold on;
+scatter3(x(1,:), x(2,:), y);
+hold off;
 %% 피팅층 설계 시뮬레이션 - 실험 2
 close all; clear all;
 period = 2*pi;
